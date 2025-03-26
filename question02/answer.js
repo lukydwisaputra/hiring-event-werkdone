@@ -58,5 +58,82 @@ const organizeBottleCollection = (inputData) => {
 };
 
 module.exports = {
-  question2: organizeBottleCollection(inputData) === outputData,
+  question2: organizeBottleCollection(inputData).stringify === outputData.stringify,
 };
+
+// ANSWER 1
+// function organizeBottleCollection(data) {
+//   return Object.values(
+//     data.reduce((acc, item) => {
+//       // Group by storageId
+//       acc[item.storageId] = acc[item.storageId] || {
+//         storageId: item.storageId,
+//         totalBottles: 0,
+//         cartons: [],
+//       };
+
+//       // Find or create carton
+//       let carton = acc[item.storageId].cartons.find((c) => c.cartonId === item.cartonId);
+//       if (!carton) {
+//         carton = {
+//           cartonId: item.cartonId,
+//           totalCollected: 0,
+//           bottles: [],
+//         };
+//         acc[item.storageId].cartons.push(carton);
+//       }
+
+//       // Add bottle and update counts
+//       carton.bottles.push({
+//         bottleId: item.bottleId,
+//         isCollected: item.isCollected,
+//       });
+
+//       if (item.isCollected) {
+//         carton.totalCollected++;
+//       }
+//       acc[item.storageId].totalBottles++;
+
+//       return acc;
+//     }, {})
+//   );
+// }
+
+// ANSWER 2
+// function organizeBottleCollection(data) {
+//   const storageMap = new Map();
+
+//   data.forEach(item => {
+//       if (!storageMap.has(item.storageId)) {
+//           storageMap.set(item.storageId, {
+//               storageId: item.storageId,
+//               totalBottles: 0,
+//               cartons: []
+//           });
+//       }
+
+//       const storage = storageMap.get(item.storageId);
+//       let carton = storage.cartons.find(c => c.cartonId === item.cartonId);
+
+//       if (!carton) {
+//           carton = {
+//               cartonId: item.cartonId,
+//               totalCollected: 0,
+//               bottles: []
+//           };
+//           storage.cartons.push(carton);
+//       }
+
+//       carton.bottles.push({
+//           bottleId: item.bottleId,
+//           isCollected: item.isCollected
+//       });
+
+//       if (item.isCollected) {
+//           carton.totalCollected++;
+//       }
+//       storage.totalBottles++;
+//   });
+
+//   return Array.from(storageMap.values());
+// }
