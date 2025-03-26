@@ -58,5 +58,5 @@ const organizeBottleCollection = (inputData) => {
 };
 
 module.exports = {
-  question2: organizeBottleCollection(inputData).stringify === outputData.stringify,
+  question2: JSON.stringify(organizeBottleCollection(inputData)) == JSON.stringify(outputData),
 };
